@@ -24,14 +24,52 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+//using princess character
+var Player = function(){
+     this.pSprite = 'images/char-boy.png';
+};
 
+//Player prototype update function
+Player.prototype.update = function(dt) {
+
+};
+
+//Draw player on screen using render function
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.pSprite), this.x, this.y);
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+function main(){
 
+const enemy1 = new Enemy();
+const enemy2 = new Enemy();
+const enemy3 = new Enemy();
+enemy1.x = 0;
+enemy1.y = 60;
+enemy2.x = 0;
+enemy2.y = 140;
+enemy3.x = 0;
+enemy3.y = 225;
+allEnemies = [enemy1,enemy2,enemy3];
+/* trying to assign coordinates automatically
+for (let i = 1; i <= allEnemies.length; i++) {
+    console.log(allEnemies[i])
+    //allEnemies[i].x = allEnemies[i-1].x;
+    //allEnemies[i].y = allEnemies[i-1].y + 100 ;
+}
+*/
 
+const playerGirl = new Player();
+playerGirl.x = enemy1.x + 200;
+playerGirl.y = enemy1.y + 425;
+player = playerGirl;
 
+}
+
+main();
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -44,3 +82,5 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
