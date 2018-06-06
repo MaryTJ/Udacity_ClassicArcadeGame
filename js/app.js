@@ -27,8 +27,10 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 //using princess character
-var Player = function(){
+var Player = function(x,y){
      this.pSprite = 'images/char-boy.png';
+     this.x = x;
+     this.y = y;
 };
 
 //Player prototype update function
@@ -50,6 +52,11 @@ const enemy1 = new Enemy(0,60);
 const enemy2 = new Enemy(0,140);
 const enemy3 = new Enemy(0,225);
 allEnemies = [enemy1,enemy2,enemy3];
+
+
+const playerGirl = new Player(200,425);
+player = playerGirl;
+
 /*
 enemy1.x = 0;
 enemy1.y = 60;
@@ -65,11 +72,6 @@ for (let i = 1; i <= allEnemies.length; i++) {
     //allEnemies[i].y = allEnemies[i-1].y + 100 ;
 }
 */
-
-const playerGirl = new Player();
-playerGirl.x = enemy1.x + 200;
-playerGirl.y = enemy1.y + 425;
-player = playerGirl;
 
 }
 
