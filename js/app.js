@@ -64,6 +64,21 @@ Player.prototype.update = function(dt) {
 
 };
 
+Player.prototype.handleInput = function(e) {
+    if  (e == 'left'){
+        this.x -= 50;
+    }
+    else if  (e == 'right'){
+        this.x += 50;
+    }
+    else if  (e == 'up'){
+        this.y -= 50;
+    }
+    else if  (e == 'down'){
+        this.y += 50;
+    }
+};
+
 //Draw player on screen using render function
 //Player.prototype.render = function() {
 //    ctx.drawImage(Resources.get(this.pSprite), this.x, this.y);
