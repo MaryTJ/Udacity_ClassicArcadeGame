@@ -65,17 +65,18 @@ Player.prototype.update = function(dt) {
 };
 
 Player.prototype.handleInput = function(e) {
-    if  (e == 'left'){
-        this.x -= 50;
+    let steps = 50;
+    if  ((e == 'left') && (this.x - steps > 0)) {
+        this.x -= steps;
     }
-    else if  (e == 'right'){
-        this.x += 50;
+    else if ((e == 'right') && (this.x + steps < 450)) {
+        this.x += steps;
     }
-    else if  (e == 'up'){
-        this.y -= 50;
+    else if ((e == 'up') && (this.y - steps > 20)) {
+        this.y -= steps;
     }
-    else if  (e == 'down'){
-        this.y += 50;
+    else if  ((e == 'down') && (this.y + steps < 450)) {
+        this.y += steps;
     }
 };
 
