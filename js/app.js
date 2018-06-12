@@ -1,6 +1,10 @@
 "use strict";
 // Enemies our player must avoid
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super
+let noBtn = document.querySelector(".noBtn");
+let yesBtn = document.querySelector(".yesBtn");
+let modal = document.querySelector(".modal");
+
 class Entity {
     constructor(x, y) {
 
@@ -25,6 +29,12 @@ class Enemy extends Entity {
         this.sprite = 'images/enemy-bug.png';
         this.speed = speed;
     }
+
+    set(x,y,speed) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+    }
 }
 
 // Update the enemy's position, required method for game
@@ -42,15 +52,19 @@ Enemy.prototype.update = function(dt) {
 
     //https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     
-    let pwidth = 69;
-    let pheight = 76;
-    let ewidth = 97;
-    let eheight = 67;
+    let pwidth = 60;//69;
+    let pheight = 70;//76;
+    let ewidth = 90;//97;
+    let eheight = 60;//67;
     
     if (this.x < player.x + pwidth && this.x + ewidth > player.x && this.y < player.y + pheight && eheight + this.y > player.y) {
             player.reset();
         }
 };
+
+Enemy.prototype.reset = function(ey) {
+
+}
 
 // Draw the enemy on the screen, required method for game
 //Enemy.prototype.render = function() {
@@ -72,20 +86,10 @@ class Player extends Entity {
 
 //Player prototype update function
 Player.prototype.update = function() {
-    //checkCollisions(this.x, this.y);
-    //https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-    /*
-    let pwidth = 69;
-    let pheight = 76;
-    let ewidth = 97;
-    let eheight = 67;
-
-    for ey in allEnemies {
-        if (this.x < ey.x + ewidth && this.x + pwidth > ey.x && this.y < ey.y + eheight && pheight + this.y > ey.y) {
-            console.log("collision detected")
-        }
+    if (this.y <= 50) {
+        //console.log("you won")
+        modal.style.display = "block";
     }
-    */
 };
 
 Player.prototype.reset = function() {
@@ -95,7 +99,7 @@ Player.prototype.reset = function() {
 
 //The function to make the player character move according to the keyboard input. There are checks to ensure the character doesn't leave the canvas
 Player.prototype.handleInput = function(e) {
-    let steps = 50;
+    let steps = 100;//50;
     if  ((e == 'left') && (this.x - steps > 0)) {
         this.x -= steps;
     }
@@ -141,4 +145,15 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+//If the user doesnot want to play the game, close the popup dialog box//
+noBtn.addEventListener("click",function()
+{
+    modal.style.display = "none";
+})
 
+//If the user wants to play the game, close the dialog box and restart game//
+yesBtn.addEventListener("click",function()
+{   
+    modal.style.display = "none";
+    player.reset();
+})
