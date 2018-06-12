@@ -17,7 +17,6 @@ Entity.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//var Enemy = function(x, y, speed) {
 class Enemy extends Entity {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -52,9 +51,9 @@ Enemy.prototype.update = function(dt) {
 
     //https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     
-    let pwidth = 60;//69;
+    let pwidth = 65;//69;
     let pheight = 70;//76;
-    let ewidth = 90;//97;
+    let ewidth = 80;//97;
     let eheight = 60;//67;
     
     if (this.x < player.x + pwidth && this.x + ewidth > player.x && this.y < player.y + pheight && eheight + this.y > player.y) {
@@ -66,17 +65,11 @@ Enemy.prototype.reset = function(ey) {
 
 }
 
-// Draw the enemy on the screen, required method for game
-//Enemy.prototype.render = function() {
-//    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-//};
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 //using princess character
-//var Player = function(x,y){
-
 class Player extends Entity {
     constructor (x,y){
         super(x,y);
@@ -87,7 +80,6 @@ class Player extends Entity {
 //Player prototype update function
 Player.prototype.update = function() {
     if (this.y <= 50) {
-        //console.log("you won")
         modal.style.display = "block";
     }
 };
@@ -115,9 +107,6 @@ Player.prototype.handleInput = function(e) {
 };
 
 //Draw player on screen using render function
-//Player.prototype.render = function() {
-//    ctx.drawImage(Resources.get(this.pSprite), this.x, this.y);
-//};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
