@@ -1,35 +1,36 @@
+//Expression for code to execute in strict mode
 "use strict";
-// Enemies our player must avoid
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super
+//Query selector for modal and buttons
 let noBtn = document.querySelector(".noBtn");
 let yesBtn = document.querySelector(".yesBtn");
 let modal = document.querySelector(".modal");
+let gameStop = 0;
 
+//Entity super class from which enemy and player class will be inherited
 class Entity {
+    //constructor for assigning x and y coordinates
     constructor(x, y) {
-
         this.x = x;
         this.y = y;
     }
 }
-
+//render function
 Entity.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Enemy class that inherits from Entity class
 class Enemy extends Entity {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    //constructor for assigning x, y and speed values to Enemy 
     constructor(x,y,speed) {
         super(x,y);
+        //setting sprite to the eney bug character
         this.sprite = 'images/enemy-bug.png';
         this.speed = speed;
     }
 
-    set(x,y,speed) {
+    //function to reset x, y coordinates and speed of enemy
+    reset(x,y,speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -39,9 +40,12 @@ class Enemy extends Entity {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
+    // Movement is multiplied by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    if (gameStop == 1) {
+        this.speed = 0
+    }
     this.x += this.speed * dt;
     //check if bug has gone out of the screen
     if (this.x > ctx.canvas.width){
@@ -49,28 +53,25 @@ Enemy.prototype.update = function(dt) {
         this.speed += 0.1
     }
 
+    //Collission detection function taken from the following website
     //https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     
-    let pwidth = 65;//69;
-    let pheight = 80;//76;
-    let ewidth = 75;//97;
-    let eheight = 60;//67;
+    let pwidth = 65;//setting player width
+    let pheight = 80;//setting player height
+    let ewidth = 70;//setting enemy width
+    let eheight = 80;//setting enemy height
     
+    //console.log(this.x,this.y,player.x,player.y);
     if (this.x <= player.x + pwidth && this.x + ewidth >= player.x && this.y <= player.y + pheight && eheight + this.y >= player.y) {
             player.reset();
         }
+        
 };
 
-Enemy.prototype.reset = function(ey) {
 
-}
-
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-//using princess character
+//Ploayer class inherited from entity class
 class Player extends Entity {
+    //setting x,y coordinates and also the sprite
     constructor (x,y){
         super(x,y);
         this.sprite = 'images/char-boy.png';
@@ -79,12 +80,15 @@ class Player extends Entity {
 
 //Player prototype update function
 Player.prototype.update = function() {
-    if (this.y <= 50) {
+    if (this.y <= 50 && gameStop == 0) {
+        //show the modal if player reaches water and stop the game
         modal.style.display = "block";
+        gameStop = 1;    
     }
 };
 
 Player.prototype.reset = function() {
+    //player reset function to bring it to initial coordinates
     player.x = 200;
     player.y = 425;
 };
@@ -106,19 +110,17 @@ Player.prototype.handleInput = function(e) {
     }
 };
 
-//Draw player on screen using render function
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 
 
+
+//Instance of enemies
 const enemy1 = new Enemy(0,60,125);
 const enemy2 = new Enemy(0,140,80);
 const enemy3 = new Enemy(0,225,200);
+//Placing all enemies in the allEnemies array
 let allEnemies = [enemy1, enemy2, enemy3]
 
-
+// Placing the player object in a variable called player
 const player = new Player(200,425);
 
 // This listens for key presses and sends the keys to your
@@ -145,4 +147,8 @@ yesBtn.addEventListener("click",function()
 {   
     modal.style.display = "none";
     player.reset();
+    enemy1.reset(0,60,125);
+    enemy2.reset(0,140,80);
+    enemy3.reset(0,225,200);
+    gameStop = 0;
 })
