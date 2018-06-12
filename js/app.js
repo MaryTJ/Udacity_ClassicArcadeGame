@@ -33,13 +33,23 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += this.speed;
-
+    this.x += this.speed * dt;
     //check if bug has gone out of the screen
     if (this.x > ctx.canvas.width){
         this.x = 0;
         this.speed += 0.1
     }
+
+    //https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    
+    let pwidth = 69;
+    let pheight = 76;
+    let ewidth = 97;
+    let eheight = 67;
+    
+    if (this.x < player.x + pwidth && this.x + ewidth > player.x && this.y < player.y + pheight && eheight + this.y > player.y) {
+            player.reset();
+        }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -52,6 +62,7 @@ Enemy.prototype.update = function(dt) {
 // a handleInput() method.
 //using princess character
 //var Player = function(x,y){
+
 class Player extends Entity {
     constructor (x,y){
         super(x,y);
@@ -60,10 +71,29 @@ class Player extends Entity {
 };
 
 //Player prototype update function
-Player.prototype.update = function(dt) {
+Player.prototype.update = function() {
+    //checkCollisions(this.x, this.y);
+    //https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    /*
+    let pwidth = 69;
+    let pheight = 76;
+    let ewidth = 97;
+    let eheight = 67;
 
+    for ey in allEnemies {
+        if (this.x < ey.x + ewidth && this.x + pwidth > ey.x && this.y < ey.y + eheight && pheight + this.y > ey.y) {
+            console.log("collision detected")
+        }
+    }
+    */
 };
 
+Player.prototype.reset = function() {
+    player.x = 200;
+    player.y = 425;
+};
+
+//The function to make the player character move according to the keyboard input. There are checks to ensure the character doesn't leave the canvas
 Player.prototype.handleInput = function(e) {
     let steps = 50;
     if  ((e == 'left') && (this.x - steps > 0)) {
@@ -90,9 +120,9 @@ Player.prototype.handleInput = function(e) {
 // Place the player object in a variable called player
 
 
-const enemy1 = new Enemy(0,60,2);
-const enemy2 = new Enemy(0,140,3);
-const enemy3 = new Enemy(0,225,4);
+const enemy1 = new Enemy(0,60,125);
+const enemy2 = new Enemy(0,140,80);
+const enemy3 = new Enemy(0,225,200);
 let allEnemies = [enemy1, enemy2, enemy3]
 
 
