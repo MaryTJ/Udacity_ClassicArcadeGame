@@ -52,11 +52,11 @@ Enemy.prototype.update = function(dt) {
     //https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     
     let pwidth = 65;//69;
-    let pheight = 70;//76;
-    let ewidth = 80;//97;
+    let pheight = 80;//76;
+    let ewidth = 75;//97;
     let eheight = 60;//67;
     
-    if (this.x < player.x + pwidth && this.x + ewidth > player.x && this.y < player.y + pheight && eheight + this.y > player.y) {
+    if (this.x <= player.x + pwidth && this.x + ewidth >= player.x && this.y <= player.y + pheight && eheight + this.y >= player.y) {
             player.reset();
         }
 };
