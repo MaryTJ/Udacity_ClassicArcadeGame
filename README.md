@@ -18,7 +18,7 @@ The user needs to click on index.html to load the game.
 
 ## PlayGame
 
-The user can move player using up, down, left and right arrow keys. The user has to reach top of the canvas (water) to win the game. If the character collides with the bugs, the player will go back to it's original position and will have to move up again.
+The user can move player using up, down, left and right arrow keys. The user has to reach top of the canvas (water) to win the game. If the character collides with the bugs, the player will go back to it's original position and will have to move up again. when the player reaches water a prompt box appears to show that player has won. It asks if the user would like to play the game again. The user can restart the game by clicking yes button on the prompt window. If the user doesnot wish to play again, no button should be clicked on the prompt,
 
 ## Credits
 
