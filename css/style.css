@@ -1,13 +1,13 @@
 body {
     text-align: center;
 }
+
 .modal{
 	display: none;
 	position: absolute;
 	width: 500px; /* Full width */
     height: 20%; /* Full height */
     background-color: teal;
-    font: blue;
     left: 30%;
     top: 25%;
 }

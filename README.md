@@ -14,7 +14,7 @@ This is a classic arcade game project built using HTML, CSS and Javascript. It i
 
 ## LoadGame
 
-The user needs to click on index.html to load the game.
+The user needs to click on index.html to load the game. The game can also be accesed using the following link https://marytj.github.io/Udacity_ClassicArcadeGame/.
 
 ## PlayGame
 
